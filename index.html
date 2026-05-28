@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AWS Torque & Tension | Mobile Calibration Services</title>
+  <meta name="description" content="AWS Torque & Tension provides mobile torque calibration services with on-site support for torque tools, testers, transducers, and industrial equipment." />
+
+  <style>
+    :root {
+      --bg: #090909;
+      --panel: #141414;
+      --panel2: #1d1d1d;
+      --text: #f7f7f7;
+      --muted: #b8b8b8;
+      --orange: #f58220;
+      --orange2: #ff9b38;
+      --border: rgba(255,255,255,0.12);
+      --shadow: 0 24px 70px rgba(0,0,0,0.45);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(245,130,32,0.18), transparent 34rem),
+        radial-gradient(circle at 85% 18%, rgba(255,255,255,0.07), transparent 24rem),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(9,9,9,0.82);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 18px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(245,130,32,0.65);
+      border-radius: 12px;
+      background:
+        linear-gradient(135deg, rgba(245,130,32,0.95), rgba(245,130,32,0.08)),
+        #171717;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      letter-spacing: -1px;
+      box-shadow: 0 0 30px rgba(245,130,32,0.18);
+    }
+
+    .brand-text strong {
+      display: block;
+      font-size: 16px;
+      letter-spacing: 0.4px;
+    }
+
+    .brand-text span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 1px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+    }
+
+    .nav-links a:hover {
+      color: var(--orange2);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      border: 1px solid rgba(245,130,32,0.65);
+      background: linear-gradient(180deg, var(--orange2), var(--orange));
+      color: #111;
+      text-decoration: none;
+      font-weight: 800;
+      border-radius: 999px;
+      padding: 12px 18px;
+      box-shadow: 0 14px 34px rgba(245,130,32,0.18);
+      transition: transform 160ms ease, box-shadow 160ms ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 40px rgba(245,130,32,0.28);
+    }
+
+    .btn.secondary {
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      border-color: var(--border);
+      box-shadow: none;
+    }
+
+    .hero {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 88px 22px 54px;
+      display: grid;
+      grid-template-columns: 1.12fr 0.88fr;
+      gap: 42px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      color: var(--orange2);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 12px;
+      font-weight: 900;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-size: clamp(42px, 6vw, 76px);
+      line-height: 0.95;
+      margin: 0 0 22px;
+      letter-spacing: -2.4px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 19px;
+      max-width: 680px;
+      margin: 0 0 28px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 13px;
+      margin-top: 30px;
+    }
+
+    .hero-card {
+      position: relative;
+      border: 1px solid var(--border);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.025)),
+        var(--panel);
+      border-radius: 28px;
+      padding: 26px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      min-height: 480px;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: -80px -130px auto auto;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: rgba(245,130,32,0.16);
+      filter: blur(8px);
+    }
+
+    .gauge {
+      position: relative;
+      height: 210px;
+      border-radius: 24px;
+      background:
+        linear-gradient(135deg, rgba(245,130,32,0.18), rgba(255,255,255,0.035)),
+        #101010;
+      border: 1px solid rgba(255,255,255,0.1);
+      display: grid;
+      place-items: center;
+      margin-bottom: 18px;
+      overflow: hidden;
+    }
+
+    .gauge-ring {
+      width: 150px;
+      height: 150px;
+      border: 10px solid rgba(255,255,255,0.08);
+      border-top-color: var(--orange);
+      border-right-color: var(--orange);
+      border-radius: 50%;
+      transform: rotate(-35deg);
+    }
+
+    .needle {
+      position: absolute;
+      width: 70px;
+      height: 5px;
+      background: var(--orange2);
+      border-radius: 999px;
+      transform: rotate(-28deg) translateX(24px);
+      transform-origin: left center;
+      box-shadow: 0 0 20px rgba(245,130,32,0.55);
+    }
+
+    .gauge-label {
+      position: absolute;
+      bottom: 34px;
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .metric {
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.04);
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 24px;
+      color: #fff;
+      line-height: 1;
+      margin-bottom: 7px;
+    }
+
+    .metric span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    section {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 48px 22px;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 24px;
+      margin-bottom: 22px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 44px);
+      letter-spacing: -1px;
+      line-height: 1.05;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      margin: 0;
+      max-width: 520px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .card {
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.045);
+      border-radius: 24px;
+      padding: 24px;
+      min-height: 210px;
+    }
+
+    .icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: rgba(245,130,32,0.13);
+      border: 1px solid rgba(245,130,32,0.28);
+      display: grid;
+      place-items: center;
+      color: var(--orange2);
+      font-size: 22px;
+      margin-bottom: 18px;
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 21px;
+    }
+
+    .card p {
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .industries {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .pill {
+      border: 1px solid var(--border);
+      color: #e9e9e9;
+      background: rgba(255,255,255,0.04);
+      padding: 9px 13px;
+      border-radius: 999px;
+      font-size: 14px;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .panel {
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,0.055), rgba(255,255,255,0.025));
+      border-radius: 28px;
+      padding: 28px;
+    }
+
+    .panel h2 {
+      margin: 0 0 12px;
+      font-size: 34px;
+      letter-spacing: -0.8px;
+    }
+
+    .panel p {
+      color: var(--muted);
+      margin: 0 0 18px;
+    }
+
+    .check-list {
+      list-style: none;
+      padding: 0;
+      margin: 22px 0 0;
+      display: grid;
+      gap: 12px;
+    }
+
+    .check-list li {
+      display: flex;
+      gap: 10px;
+      color: #e8e8e8;
+    }
+
+    .check-list li::before {
+      content: "✓";
+      color: var(--orange2);
+      font-weight: 900;
+    }
+
+    .cta {
+      margin: 44px 22px 0;
+      max-width: none;
+      padding: 0;
+    }
+
+    .cta-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      border: 1px solid rgba(245,130,32,0.3);
+      background:
+        linear-gradient(135deg, rgba(245,130,32,0.18), rgba(255,255,255,0.035)),
+        #121212;
+      border-radius: 30px;
+      padding: 34px;
+      display: flex;
+      justify-content: space-between;
+      gap: 26px;
+      align-items: center;
+      box-shadow: var(--shadow);
+    }
+
+    .cta h2 {
+      margin: 0 0 8px;
+      font-size: clamp(28px, 4vw, 42px);
+      letter-spacing: -1px;
+    }
+
+    .cta p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 690px;
+    }
+
+    footer {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 42px 22px 34px;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 22px;
+      flex-wrap: wrap;
+      font-size: 14px;
+    }
+
+    footer a {
+      color: var(--orange2);
+      text-decoration: none;
+    }
+
+    @media (max-width: 900px) {
+      .hero,
+      .split {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 58px;
+      }
+
+      .hero-card {
+        min-height: auto;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head,
+      .cta-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .brand-text strong {
+        font-size: 14px;
+      }
+
+      .brand-text span {
+        display: none;
+      }
+
+      h1 {
+        letter-spacing: -1.4px;
+      }
+
+      .hero p {
+        font-size: 17px;
+      }
+
+      .metric-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .panel,
+      .hero-card,
+      .cta-inner {
+        border-radius: 22px;
+        padding: 22px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <nav class="nav">
+      <a href="/" class="brand" aria-label="AWS Torque & Tension home">
+        <div class="brand-mark">AWS</div>
+        <div class="brand-text">
+          <strong>AWS Torque &amp; Tension</strong>
+          <span>Mobile Calibration Services</span>
+        </div>
+      </a>
+
+      <div class="nav-links">
+        <a href="#services">Services</a>
+        <a href="#industries">Industries</a>
+        <a href="#contact">Contact</a>
+        <a href="https://connect.awstorqueandtension.com">Connect Page</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <div class="eyebrow">On-site torque calibration</div>
+        <h1>Mobile calibration brought directly to your job site.</h1>
+        <p>
+          AWS Torque &amp; Tension provides mobile calibration support for industrial torque tools,
+          testers, transducers, and related equipment — helping reduce downtime and keep your team moving.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn" href="mailto:info@awstorqueandtension.com?subject=Mobile%20Calibration%20Request">Request Service</a>
+          <a class="btn secondary" href="https://connect.awstorqueandtension.com">Open Connect Page</a>
+        </div>
+      </div>
+
+      <aside class="hero-card" aria-label="Mobile calibration highlights">
+        <div class="gauge">
+          <div class="gauge-ring"></div>
+          <div class="needle"></div>
+          <div class="gauge-label">Calibration Ready</div>
+        </div>
+
+        <div class="metric-grid">
+          <div class="metric">
+            <strong>On-site</strong>
+            <span>Mobile service at your facility or job site</span>
+          </div>
+          <div class="metric">
+            <strong>NIST</strong>
+            <span>Traceable calibration support</span>
+          </div>
+          <div class="metric">
+            <strong>Torque</strong>
+            <span>Tools, testers, transducers, and more</span>
+          </div>
+          <div class="metric">
+            <strong>Fast</strong>
+            <span>Built around reducing downtime</span>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section id="services">
+      <div class="section-head">
+        <h2>Calibration services that come to you.</h2>
+        <p>
+          This placeholder site can be expanded later, but it already gives customers a clear landing page
+          for what AWS Torque &amp; Tension offers.
+        </p>
+      </div>
+
+      <div class="cards">
+        <article class="card">
+          <div class="icon">⚙</div>
+          <h3>Torque Tool Calibration</h3>
+          <p>On-site support for production torque tools and related equipment used in industrial applications.</p>
+        </article>
+
+        <article class="card">
+          <div class="icon">▣</div>
+          <h3>Torque Tester Support</h3>
+          <p>Calibration service for torque testers and verification equipment to help keep your process reliable.</p>
+        </article>
+
+        <article class="card">
+          <div class="icon">⌁</div>
+          <h3>Transducers &amp; Equipment</h3>
+          <p>Support for torque transducers, measurement equipment, and calibration records used by your team.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="industries">
+      <div class="split">
+        <div class="panel">
+          <h2>Built for industrial teams.</h2>
+          <p>
+            Mobile service is ideal when shipping equipment out creates downtime, delays, or production headaches.
+          </p>
+
+          <div class="industries" aria-label="Industries served">
+            <span class="pill">Oil &amp; Gas</span>
+            <span class="pill">Aerospace</span>
+            <span class="pill">Manufacturing</span>
+            <span class="pill">Utilities</span>
+            <span class="pill">Field Service</span>
+            <span class="pill">Heavy Equipment</span>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>Why mobile calibration?</h2>
+          <ul class="check-list">
+            <li>Reduce downtime by keeping equipment on-site.</li>
+            <li>Support scheduled maintenance and calibration events.</li>
+            <li>Improve visibility with organized service and calibration records.</li>
+            <li>Help production teams stay focused on the work instead of shipping logistics.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta" id="contact">
+      <div class="cta-inner">
+        <div>
+          <h2>Need mobile calibration service?</h2>
+          <p>
+            Contact AWS Torque &amp; Tension to discuss your equipment, location, schedule, and service needs.
+          </p>
+        </div>
+        <a class="btn" href="mailto:info@awstorqueandtension.com?subject=Mobile%20Calibration%20Request">Contact Us</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div>© <span id="year"></span> AWS Torque &amp; Tension, LLC. All rights reserved.</div>
+    <div>
+      <a href="https://connect.awstorqueandtension.com">connect.awstorqueandtension.com</a>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
